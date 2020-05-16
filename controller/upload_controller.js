@@ -16,7 +16,7 @@ module.exports.Upload = function(req, res){
                 console.log("multer Error");
             }
             console.log(req.file);
-            if(req.file && req.file.mimetype == "application/vnd.ms-excel"){
+            if(req.file && req.file.mimetype == "application/vnd.ms-excel" || req.file && req.file.mimetype == "text/csv"){
                 console.log("true");
                 console.log(req.file);
                 File.create({
@@ -30,17 +30,16 @@ module.exports.Upload = function(req, res){
                                 message: "Error in creating Note or Uploading File"
                             });
                         }
-                        res.status(200).json({
-                            message: "File Uploaded"
-                        });
+                        // res.status(200).json({
+                        //     message: "File Uploaded"
+                            
+                        // });
                         return res.redirect("/");
                     }
                 );
             }else{
                 console.log("Please Upload CSV Format file");
-                res.status(422).json({
-                    message: "Please Upload .csv file"
-                });
+                
                 // todo add alert
                 return res.redirect("/");
             }
